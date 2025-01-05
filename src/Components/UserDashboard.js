@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { db, auth } from "./firebase"; // Import Firestore and Firebase Auth
+import { db, auth } from "./firebase"; 
 import "./UserDashboard.css";
 import { useNavigate } from "react-router-dom";
 
@@ -9,9 +9,9 @@ const UserDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [rating, setRating] = useState({});
   const [currentUserId, setCurrentUserId] = useState(null);
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate(); 
 
-  // Get the logged-in user's ID
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -23,7 +23,7 @@ const UserDashboard = () => {
     return () => unsubscribe();
   }, []);
 
-  // Fetch all stores from Firestore
+
   const fetchStores = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "stores"));
@@ -42,12 +42,12 @@ const UserDashboard = () => {
     fetchStores();
   }, []);
 
-  // Handle rating change
+
   const handleRatingChange = (storeId, newRating) => {
     setRating({ ...rating, [storeId]: newRating });
   };
 
-  // Handle rating submission
+
   const handleRatingSubmit = async (storeId) => {
     const newRating = parseInt(rating[storeId], 10);
     if (!currentUserId) {
@@ -57,7 +57,7 @@ const UserDashboard = () => {
 
     if (newRating && newRating >= 1 && newRating <= 5) {
       try {
-        // Add the rating to Firestore
+  
         await addDoc(collection(db, "Ratings"), {
           userId: currentUserId,
           storeId: storeId,
@@ -66,7 +66,7 @@ const UserDashboard = () => {
         });
 
         alert("Rating submitted successfully!");
-        setRating({ ...rating, [storeId]: "" }); // Clear the input
+        setRating({ ...rating, [storeId]: "" }); 
       } catch (error) {
         console.error("Error submitting rating:", error);
         alert("Failed to submit rating.");
@@ -76,7 +76,7 @@ const UserDashboard = () => {
     }
   };
 
-  // Filter stores based on the search term
+
   const filteredStores = stores.filter(
     (store) =>
       store.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -94,7 +94,6 @@ const UserDashboard = () => {
   Logout
 </button>
       <div>
-        {/* Search Input */}
         <input
           type="text"
           placeholder="Search by name or address..."

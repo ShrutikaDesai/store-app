@@ -15,20 +15,20 @@ const Register = ({ handleLogin }) => {
     setError("");
 
     try {
-      // Sign in the user with email and password
+    
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Save the login data to Firestore
+     
       const loginData = {
         email: user.email,
         loginTimestamp: Timestamp.now(),
       };
 
-      // Save login data in the "loginHistory" collection
+      
       await addDoc(collection(db, "loginHistory"), loginData);
 
-      handleLogin(); // Call the handleLogin function to update the login state
+      handleLogin(); 
 
       navigate("/user-dash");
       alert("Login successful!");

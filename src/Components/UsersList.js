@@ -13,7 +13,7 @@ const UsersList = () => {
     role: "",
   });
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetchUsers();
