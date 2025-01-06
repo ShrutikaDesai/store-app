@@ -7,18 +7,14 @@ import "./UsersList.css";
 const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [filters, setFilters] = useState({
-    name: "",
-    email: "",
-    address: "",
-    role: "",
+    searchTerm: "", // Unified filter
   });
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
   }, []);
-  
 
   const fetchUsers = async () => {
     try {
@@ -35,10 +31,10 @@ const UsersList = () => {
   };
 
   const handleFilterChange = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [name]: value,
+      searchTerm: value,
     }));
   };
 
@@ -60,11 +56,15 @@ const UsersList = () => {
     return 0;
   });
 
-  const filteredUsers = sortedUsers.filter((user) =>
-    Object.entries(filters).every(([key, value]) =>
-      value ? user[key]?.toLowerCase().includes(value.toLowerCase()) : true
-    )
-  );
+  const filteredUsers = sortedUsers.filter((user) => {
+    const lowerCaseSearchTerm = filters.searchTerm.toLowerCase();
+    return (
+      (user.name && user.name.toLowerCase().includes(lowerCaseSearchTerm)) ||
+      (user.email && user.email.toLowerCase().includes(lowerCaseSearchTerm)) ||
+      (user.address && user.address.toLowerCase().includes(lowerCaseSearchTerm)) ||
+      (user.role && user.role.toLowerCase().includes(lowerCaseSearchTerm))
+    );
+  });
 
   const getSortIndicator = (key) => {
     if (sortConfig.key === key) {
@@ -75,45 +75,21 @@ const UsersList = () => {
 
   return (
     <div className="container">
-      <h2>Users List</h2>
+      <h1>Users List</h1>
       <button className="back-button" onClick={() => navigate("/admin-dash")}>
-  Back
-</button>
+        Back
+      </button>
 
       <div className="filters">
         <input
           type="text"
-          name="name"
-          placeholder="Filter by Name"
-          value={filters.name}
-          onChange={handleFilterChange}
-          className="filter-input"
-        />
-        <input
-          type="text"
-          name="email"
-          placeholder="Filter by Email"
-          value={filters.email}
-          onChange={handleFilterChange}
-          className="filter-input"
-        />
-        <input
-          type="text"
-          name="address"
-          placeholder="Filter by Address"
-          value={filters.address}
-          onChange={handleFilterChange}
-          className="filter-input"
-        />
-        <input
-          type="text"
-          name="role"
-          placeholder="Filter by Role"
-          value={filters.role}
+          placeholder="Search by Name, Email, Address, or Role"
+          value={filters.searchTerm}
           onChange={handleFilterChange}
           className="filter-input"
         />
       </div>
+
       {filteredUsers.length === 0 ? (
         <p className="no-users">No users to display.</p>
       ) : (
@@ -139,7 +115,7 @@ const UsersList = () => {
           </thead>
           <tbody>
             {filteredUsers.map((user, index) => (
-              <tr key={user.id}>
+              <tr key={user.userId}>
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>

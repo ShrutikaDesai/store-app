@@ -16,20 +16,25 @@ h2 {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  margin-left: 35%;
+
 }
 
 .filter-input {
   padding: 10px;
   font-size: 14px;
-  border: 1px solid #ccc;
+  border: 1px solid #0e0d0d;
   border-radius: 4px;
-  width: 193px;
+  width: 350px;
+  height: 2vh;
 }
 
 .users-table {
-  width: 100%;
+  width: 91%;
   border-collapse: collapse;
   margin-top: 20px;
+  margin-left: 5%;
+  
 }
 
 .users-table th, .users-table td {
@@ -69,6 +74,8 @@ h2 {
   display: inline-block;
   padding: 8px 15px;
   font-size: 16px;
+  width: 11%;
+  height: 7vh;
   font-weight: bold;
   color: white;
   background: linear-gradient(to right, rgb(9, 50, 68), rgb(50, 206, 249));

@@ -36,7 +36,7 @@ const AdminDashboard = ({ isAuthenticated, fetchUsers, fetchStores, userData, st
 
   return (
     <div style={styles.container}>
-      <h1>Admin Panel</h1>
+      <h1>Admin Dashboard</h1><br></br><br></br>
       
       {isAuthenticated && (
         <nav style={styles.nav}>
@@ -59,8 +59,9 @@ const AdminDashboard = ({ isAuthenticated, fetchUsers, fetchStores, userData, st
             {isLoggingOut ? "Logging Out..." : "Logout"}
           </button>
         </nav>
-      )}
+      )}<br></br><br></br>
       
+      <div style={styles.cardstyle}>
       <div style={styles.card}>
         <h3>Total Users</h3>
         <p>{totalUsers}</p>
@@ -73,6 +74,7 @@ const AdminDashboard = ({ isAuthenticated, fetchUsers, fetchStores, userData, st
         <h3>Total Ratings</h3>
         <p>{totalRatings}</p>
       </div>
+      </div>
     </div>
   );
 };
@@ -81,6 +83,7 @@ const styles = {
   container: {
     textAlign: "center",
     padding: "20px",
+    border:"2px solid gray",
   },
   nav: {
     marginBottom: "20px",
@@ -128,12 +131,22 @@ const styles = {
   },
   card: {
     display: "inline-block",
-    width: "200px",
+    width: "280px", 
+    height: "220px", 
     margin: "20px",
-    padding: "20px",
+    padding: "25px",
     border: "1px solid #ccc",
-    borderRadius: "8px",
-    boxShadow: "0px 4px 6px rgba(0,0,0,0.1)",
+    borderRadius: "10px",
+    boxShadow: "0px 4px 10px rgba(0,0,0,0.15)",
+    backgroundColor: "#fff",
+    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+  },
+  cardstyle: {
+    padding: "30px", 
+    display: "flex",
+    justifyContent: "center", 
+    flexWrap: "wrap",
+    marginTop: "40px", 
   },
 };
 

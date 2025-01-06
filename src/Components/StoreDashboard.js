@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "./firebase"; // Import your Firebase configuration
-import './StoreDashboard.css'; // Import the CSS file
+import { db } from "./firebase"; 
+import './StoreDashboard.css'; 
 import { useNavigate } from "react-router-dom";
 
 
 const StoreDashboard = () => {
   const [ratings, setRatings] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate(); 
 
   const fetchRatings = async () => {
     try {

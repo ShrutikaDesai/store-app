@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "./firebase"; // Firebase configuration
@@ -60,14 +61,14 @@ const Login = ({ handleLogin }) => {
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto", padding: "20px", border: "1px solid #ccc", borderRadius: "8px", background: "linear-gradient(to right, #82a886, #36c0e6)", textAlign: "center" }}>
+    <div style={{maxWidth: "600px" ,marginTop:"7%",marginLeft:"25%", padding: "20px 30px", border: "1px solid #ccc", borderRadius: "8px", background: "linear-gradient(to right, #82a886, #36c0e6)", textAlign: "center" }}>
       <h1>Login</h1>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "15px" }}>
         <button
           onClick={() => setRole("Admin")}
           style={{
             padding: "10px 20px",
-            backgroundColor: "#4CAF50", // Green color for Admin/Store Owner
+            backgroundColor: "#4CAF50", 
             color: "white",
             border: "none",
             borderRadius: "4px",
@@ -164,3 +165,116 @@ const Login = ({ handleLogin }) => {
 };
 
 export default Login;
+
+
+
+// import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { auth, db } from "./firebase"; 
+// import { signInWithEmailAndPassword } from "firebase/auth";
+// import { collection, addDoc, Timestamp } from "firebase/firestore";
+// import './Login.css'; // Create a separate CSS file for styling
+
+// const Login = ({ handleLogin }) => {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [role, setRole] = useState("");
+//   const [error, setError] = useState("");
+//   const navigate = useNavigate(); 
+
+//   const handleRoleChange = (e) => {
+//     setRole(e.target.value);
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setError("");
+
+//     if (!role) {
+//       setError("Please select a role before logging in.");
+//       return;
+//     }
+
+//     try {
+//       const userCredential = await signInWithEmailAndPassword(auth, email, password);
+//       const user = userCredential.user;
+
+//       const loginData = {
+//         email: user.email,
+//         role: role,
+//         loginTimestamp: Timestamp.now(),
+//       };
+
+//       await addDoc(collection(db, "loginHistory"), loginData);
+//       handleLogin(); 
+
+//       if (role === "Admin") {
+//         navigate("/admin-dash");
+//       } else if (role === "Store Owner") {
+//         navigate("/store-dash");
+//       } else if (role === "User") {
+//         navigate("/user-dash");
+//       } else {
+//         throw new Error("Invalid role selected.");
+//       }
+
+//       alert("Login successful!");
+//     } catch (err) {
+//       console.error("Error during authentication:", err);
+//       setError("An error occurred. Please try again later.");
+//     }
+//   };
+
+//   return (
+//     <div className="login-content">
+//       <h1 className="login-heading">Login</h1>
+//       <div className="role-selection">
+//         <button onClick={() => setRole("Admin")} className="role-button">
+//           Admin/Store Owner
+//         </button>
+//         <button onClick={() => navigate("/signup")} className="role-button">
+//           User
+//         </button>
+//       </div>
+
+//       {error && <p className="error-message">{error}</p>}
+
+//       <form onSubmit={handleSubmit} className="login-form">
+//         <div className="form-group">
+//           <label>Email:</label>
+//           <input
+//             type="email"
+//             placeholder="Enter your email"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//             required
+//           />
+//         </div>
+//         <div className="form-group">
+//           <label>Password:</label>
+//           <input
+//             type="password"
+//             placeholder="Enter your password"
+//             value={password}
+//             onChange={(e) => setPassword(e.target.value)}
+//             required
+//           />
+//         </div>
+//         <div className="form-group">
+//           <label htmlFor="role">Role:</label>
+//           <select id="role" value={role} onChange={handleRoleChange} required>
+//             <option value="">Select Role</option>
+//             <option value="Admin">System Admin</option>
+//             <option value="Store Owner">Store Owner</option>
+//             <option value="User">Normal User</option>
+//           </select>
+//         </div>
+//         <button type="submit" className="submit-button" disabled={!email || !password || !role}>
+//           Login
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default Login;

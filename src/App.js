@@ -56,7 +56,7 @@ const App = () => {
     }
   };
  
-    // Function to handle login status change
+  
     const handleLogin = () => {
       setIsAuthenticated(true);
     };

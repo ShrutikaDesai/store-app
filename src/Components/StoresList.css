@@ -1,8 +1,9 @@
 .container {
-    max-width: 900px;
+    max-width: 1900px;
     margin: 0 auto;
     padding: 20px;
     font-family: 'Times New Roman', serif;
+    border: 2px solid gray;
   }
   
   h2 {
@@ -12,7 +13,7 @@
   }
   
   .stores-table {
-    width: 100%;
+    width: 91%;
     border-collapse: collapse;
     margin-top: 20px;
   }

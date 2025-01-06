@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { db } from "./firebase"; // Import your Firebase configuration
+import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "./Admin.css";
 
 const Admin = ({ fetchUsers, fetchStores }) => {
-  const [formType, setFormType] = useState("user"); // 'user' or 'store'
-  const navigate = useNavigate(); // Initialize navigate hook
+  const [formType, setFormType] = useState("user"); 
+  const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
     name: "",
     email: "",

@@ -7,10 +7,10 @@ import "./StoresList.css"; // Add any required CSS
 const StoresList = () => {
   const [stores, setStores] = useState([]);
   const [editingStore, setEditingStore] = useState(null); 
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState(""); // Search term state
   const navigate = useNavigate(); 
 
- 
+  
   const fetchStores = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "stores"));
@@ -29,7 +29,6 @@ const StoresList = () => {
     fetchStores();
   }, []);
 
-  // Handle delete action
   const handleDelete = async (storeId) => {
     try {
       await deleteDoc(doc(db, "stores", storeId));
@@ -40,12 +39,10 @@ const StoresList = () => {
     }
   };
 
-  // Handle edit action
   const handleEdit = (store) => {
     setEditingStore(store); 
   };
 
-  // Handle update action
   const handleUpdate = async (e) => {
     e.preventDefault();
     const { name, email, address, rating } = editingStore;
@@ -61,12 +58,12 @@ const StoresList = () => {
     }
   };
 
-  
+ 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filter stores
+  // Filter stores based on search term
   const filteredStores = stores.filter(store => 
     store.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     store.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -74,12 +71,13 @@ const StoresList = () => {
   );
 
   return (
-    <div className="stores-container">
+    <div className="container">
+          <h1>Stores List</h1>
       <button className="back-button" onClick={() => navigate("/admin-dash")}>
         Back
       </button>
 
-      {/* Search box */}
+     
       <div className="search-box">
         <input
           type="text"
@@ -89,7 +87,7 @@ const StoresList = () => {
         />
       </div>
 
-      {/* Edit form */}
+
       {editingStore && (
         <form onSubmit={handleUpdate} className="edit-form">
           <h2>Edit Store</h2>

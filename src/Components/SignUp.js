@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "./firebase"; // Firebase configuration
+import { auth, db } from "./firebase"; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
 
@@ -20,7 +20,7 @@ const SignUp = () => {
 
   
 
-    // Basic email format validation
+ 
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (!emailPattern.test(email)) {
       setError("Please enter a valid email address.");
@@ -28,11 +28,11 @@ const SignUp = () => {
     }
 
     try {
-      // Create a new user with email and password
+    
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Save additional user information to Firestore
+     
       const userData = {
         name: name,
         email: user.email,
@@ -40,11 +40,11 @@ const SignUp = () => {
   
       };
 
-      // Save user data in the "users" collection
+  
       await addDoc(collection(db, "users"), userData);
 
       alert("Sign-up successful!");
-      navigate("/login"); // Redirect to login page after successful sign-up
+      navigate("/login"); 
 
     } catch (err) {
       console.error("Error during sign-up:", err);

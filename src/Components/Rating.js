@@ -1,4 +1,3 @@
-// RatingForm.js
 import React, { useState } from 'react';
 
 const Rating = ({ handleRatingSubmit, stores, isLoggedIn }) => {
